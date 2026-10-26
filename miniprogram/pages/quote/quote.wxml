@@ -1,0 +1,112 @@
+<view class="page-shell">
+  <view class="eyebrow">STEP 2 / 3</view>
+  <view class="display-title">告诉我你家的收纳需求</view>
+  <view class="subcopy">面积和房间数用于计算基础服务费，服务项目可按实际需要多选。</view>
+
+  <view class="stepper">
+    <view class="step done">
+      <view class="step-index">✓</view>
+      <text>填写信息</text>
+    </view>
+    <view class="step active">
+      <view class="step-index">2</view>
+      <text>选择需求</text>
+    </view>
+    <view class="step">
+      <view class="step-index">3</view>
+      <text>获取报价</text>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">房屋情况</view>
+    <view class="field two-column">
+      <view>
+        <text class="field-label">房屋面积（㎡）</text>
+        <input class="text-input input-active" type="digit" value="{{area}}" bindinput="handleArea" placeholder="例如：90" />
+      </view>
+      <view>
+        <text class="field-label">房间数量</text>
+        <input class="text-input input-active" type="number" value="{{rooms}}" bindinput="handleRooms" placeholder="例如：3" />
+      </view>
+    </view>
+    <view class="field">
+      <text class="field-label">户型</text>
+      <picker range="{{layouts}}" value="{{layoutIndex}}" bindchange="handleLayout">
+        <view class="picker-field selected-field">{{layouts[layoutIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">需要哪些服务 <text wx:if="{{selectedServiceCount}}" class="selected-count">已选 {{selectedServiceCount}} 项</text></view>
+    <view class="panel-note">可多选；不选择时系统只计算基础整理费用。</view>
+    <view wx:for="{{serviceGroups}}" wx:key="name" wx:for-item="group" class="service-group">
+      <view class="service-group-title">{{group.name}}</view>
+      <view wx:for="{{group.options}}" wx:key="key" wx:for-item="item" class="service-row {{item.checked ? 'selected' : ''}}" hover-class="card-hover" data-key="{{item.key}}" bindtap="toggleService">
+        <view class="service-copy">
+          <text class="service-name">{{item.label}}</text>
+          <text class="service-price">+ ¥{{item.price}}</text>
+        </view>
+        <view class="service-check">
+          <text class="service-checked">{{item.checked ? '✓' : '+'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">预约信息</view>
+    <view class="field">
+      <text class="field-label">期望时段</text>
+      <picker range="{{urgencyOptions}}" range-key="label" value="{{urgencyIndex}}" bindchange="handleUrgency">
+        <view class="picker-field selected-field">{{urgencyOptions[urgencyIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="field-label">期望上门日期（选填）</text>
+      <picker mode="date" value="{{preferredDate}}" bindchange="handleDate">
+        <view class="picker-field {{preferredDate ? 'selected-field' : 'placeholder'}}">{{preferredDate || '选择日期'}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="field-label">补充需求（选填）</text>
+      <textarea class="textarea" value="{{needs}}" bindinput="handleNeeds" maxlength="1000" placeholder="例如：衣帽间比较乱，需要重点整理儿童房"></textarea>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">优惠券 <text wx:if="{{selectedCouponId}}" class="selected-count">已选 1 张</text></view>
+    <view class="panel-note">管理员发放到当前微信的优惠券会显示在这里，可用于抵扣本次预算。</view>
+    <view wx:if="{{coupons.length}}" class="coupon-list">
+      <view wx:for="{{coupons}}" wx:key="id" class="coupon-row {{selectedCouponId === item.id ? 'selected' : ''}}" hover-class="card-hover" data-id="{{item.id}}" bindtap="toggleCoupon">
+        <view class="coupon-copy">
+          <text class="coupon-name">{{item.name}}</text>
+          <text class="coupon-rule">{{item.ruleText}}</text>
+        </view>
+        <text class="coupon-check">{{selectedCouponId === item.id ? '✓' : '选择'}}</text>
+      </view>
+    </view>
+    <view wx:else class="coupon-empty">当前没有可用优惠券</view>
+  </view>
+
+  <view class="quote-panel">
+    <view>
+      <view class="quote-label">当前预算范围</view>
+      <view wx:if="{{quote}}" class="quote-number">¥{{quote.low}} - ¥{{quote.high}}</view>
+      <view wx:else class="quote-number quote-loading">计算中…</view>
+      <view class="quote-note">精确参考价 ¥{{quote.exact || 0}}，最终以现场评估为准</view>
+    <view wx:if="{{quote.discount}}" class="quote-discount">优惠券已抵扣 ¥{{quote.discount}}</view>
+    <view wx:if="{{quote.couponWarning}}" class="quote-coupon-warning">{{quote.couponWarning}}</view>
+    </view>
+    <view class="quote-divider"></view>
+    <view wx:for="{{quote.breakdown}}" wx:key="label" class="breakdown-line">
+      <text>{{item.label}}</text>
+      <text>¥{{item.amount}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{error}}" class="error-box">{{error}}</view>
+  <button class="primary-button section-gap" hover-class="button-hover" bindtap="submit" loading="{{submitting}}" disabled="{{submitting || loading}}">提交需求并锁定当前报价</button>
+  <view class="bottom-note">提交后客服会联系你确认上门时间，当前报价不会自动扣费。</view>
+</view>

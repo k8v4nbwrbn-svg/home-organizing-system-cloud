@@ -1,0 +1,29 @@
+<view class="page-shell">
+  <view class="eyebrow">CUSTOMER SERVICE</view>
+  <view class="display-title">联系客服微信</view>
+  <view class="subcopy">长按识别或点击二维码查看大图，添加客服后可以咨询上门时间、服务范围和报价细节。</view>
+
+  <view wx:if="{{loading}}" class="support-state">正在加载客服…</view>
+  <view wx:elif="{{error}}" class="error-box">{{error}}</view>
+  <view wx:elif="{{!agents.length}}" class="support-state">客服信息暂未配置</view>
+
+  <view wx:else class="agent-list">
+    <view wx:for="{{agents}}" wx:key="id" class="agent-card">
+      <image
+        class="agent-qr"
+        src="{{item.qrUrl}}"
+        mode="aspectFit"
+        show-menu-by-longpress="{{true}}"
+        data-url="{{item.qrUrl}}"
+        bindtap="previewQr"
+      />
+      <view class="agent-info">
+        <view class="agent-name">{{item.name}}</view>
+        <view class="agent-wechat">微信号：{{item.wechatId || '请长按二维码添加'}}</view>
+        <view class="agent-tip">长按二维码识别，或点击查看大图</view>
+      </view>
+    </view>
+  </view>
+
+  <button class="secondary-button share-button" open-type="share" hover-class="button-hover">分享小程序给朋友</button>
+</view>

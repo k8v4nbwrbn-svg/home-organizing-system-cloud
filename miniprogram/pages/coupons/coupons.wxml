@@ -1,0 +1,29 @@
+<view class="page-shell">
+  <view class="eyebrow">MY COUPONS</view>
+  <view class="display-title">我的优惠券</view>
+  <view class="subcopy">管理员发放给当前微信的优惠券都会显示在这里，可在报价页面选择使用。</view>
+
+  <view wx:if="{{loading}}" class="state-box">正在加载优惠券…</view>
+  <view wx:elif="{{error}}" class="error-box">{{error}}</view>
+  <view wx:elif="{{!coupons.length}}" class="empty-box">
+    <view class="empty-title">暂时没有优惠券</view>
+    <view class="empty-copy">客服发放优惠券后，会显示在当前页面。</view>
+    <button class="primary-button" hover-class="button-hover" bindtap="goService">返回服务首页</button>
+  </view>
+
+  <view wx:else class="coupon-list">
+    <view wx:for="{{coupons}}" wx:key="id" class="coupon-card status-{{item.status}}">
+      <view class="coupon-head">
+        <view>
+          <view class="coupon-name">{{item.name}}</view>
+          <view class="coupon-rule">{{item.ruleText}}</view>
+        </view>
+        <view class="coupon-status">{{item.statusLabel}}</view>
+      </view>
+      <view class="coupon-foot">
+        <text>有效期：{{item.validText}}</text>
+        <text wx:if="{{item.usedText}}">使用时间：{{item.usedText}}</text>
+      </view>
+    </view>
+  </view>
+</view>

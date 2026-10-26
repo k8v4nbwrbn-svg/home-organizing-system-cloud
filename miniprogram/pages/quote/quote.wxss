@@ -1,0 +1,217 @@
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.service-row {
+  min-height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #edf0ee;
+  border-left: 6rpx solid transparent;
+  border-radius: 8rpx;
+  padding-left: 14rpx;
+  padding-right: 10rpx;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.service-group {
+  margin-top: 22rpx;
+}
+
+.service-group:first-child {
+  margin-top: 8rpx;
+}
+
+.service-group-title {
+  padding: 0 6rpx 8rpx;
+  color: #66736d;
+  font-size: 26rpx;
+  font-weight: 700;
+  letter-spacing: 1rpx;
+}
+
+.service-row:last-child {
+  border-bottom: 0;
+}
+
+.service-row.selected {
+  border-left-color: #0f6d5a;
+  background: #e8f2ed;
+}
+
+.service-row.selected .service-name {
+  color: #084c3f;
+  font-weight: 700;
+}
+
+.service-check {
+  min-width: 58rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8rpx;
+}
+
+.service-checked {
+  color: #0f6d5a;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.selected-count {
+  margin-left: 12rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 999rpx;
+  background: #e2f1e8;
+  color: #0f6d5a;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.selected-field {
+  border-color: #88b6a5 !important;
+  background: #f8fcfa !important;
+  color: #0f6d5a !important;
+  font-weight: 600;
+}
+
+.coupon-list {
+  display: grid;
+  gap: 12rpx;
+  margin-top: 20rpx;
+}
+
+.coupon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 20rpx;
+  border: 1rpx solid #dce3de;
+  border-left: 6rpx solid transparent;
+  border-radius: 8rpx;
+  background: #f8faf8;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.coupon-row.selected {
+  border-left-color: #0f6d5a;
+  border-color: #9bc4b4;
+  background: #e8f2ed;
+}
+
+.coupon-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 7rpx;
+}
+
+.coupon-name {
+  color: #24322c;
+  font-size: 31rpx;
+  font-weight: 700;
+}
+
+.coupon-rule {
+  color: #6f7b76;
+  font-size: 26rpx;
+}
+
+.coupon-check {
+  flex: none;
+  color: #0f6d5a;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.coupon-empty {
+  margin-top: 18rpx;
+  padding: 24rpx;
+  background: #f6f8f6;
+  color: #8b9691;
+  font-size: 27rpx;
+  text-align: center;
+}
+
+.quote-discount {
+  margin-top: 10rpx;
+  color: #8ed6b8;
+  font-size: 27rpx;
+}
+
+.quote-coupon-warning {
+  margin-top: 10rpx;
+  color: #f1c27a;
+  font-size: 24rpx;
+}
+
+.service-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+}
+
+.service-name {
+  color: #2a3631;
+  font-size: 32rpx;
+}
+
+.service-price {
+  color: #0f6d5a;
+  font-size: 27rpx;
+}
+
+.quote-panel {
+  margin-top: 28rpx;
+  padding: 32rpx;
+  border-radius: 12rpx;
+  background: #17211e;
+  color: #f5f8f6;
+}
+
+.quote-label {
+  color: #a8b8b2;
+  font-size: 27rpx;
+}
+
+.quote-number {
+  margin: 14rpx 0 10rpx;
+  font-size: 54rpx;
+  font-weight: 700;
+  letter-spacing: -1rpx;
+}
+
+.quote-loading {
+  color: #a8b8b2;
+}
+
+.quote-note {
+  color: #9aaba5;
+  font-size: 26rpx;
+}
+
+.quote-divider {
+  height: 1rpx;
+  margin: 26rpx 0 18rpx;
+  background: rgba(255,255,255,0.12);
+}
+
+.breakdown-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 8rpx 0;
+  color: #cfdbd6;
+  font-size: 27rpx;
+}
+
+.bottom-note {
+  margin-top: 20rpx;
+  color: #84918b;
+  font-size: 26rpx;
+  line-height: 1.6;
+  text-align: center;
+}

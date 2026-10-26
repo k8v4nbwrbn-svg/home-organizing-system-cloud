@@ -1,0 +1,89 @@
+.state-box,
+.empty-box {
+  margin-top: 34rpx;
+  padding: 48rpx 32rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 12rpx;
+  background: #ffffff;
+  color: #77837e;
+  text-align: center;
+}
+
+.empty-title {
+  color: #17201d;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.empty-copy {
+  margin: 14rpx 0 30rpx;
+  color: #77837e;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+
+.coupon-list {
+  display: grid;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.coupon-card {
+  padding: 28rpx;
+  border: 1rpx solid #dce3de;
+  border-left: 8rpx solid #0f6d5a;
+  border-radius: 10rpx;
+  background: #ffffff;
+}
+
+.coupon-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.coupon-name {
+  color: #17201d;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.coupon-rule {
+  margin-top: 9rpx;
+  color: #0f6d5a;
+  font-size: 28rpx;
+}
+
+.coupon-status {
+  flex: none;
+  padding: 7rpx 14rpx;
+  border-radius: 999rpx;
+  background: #e2f1e8;
+  color: #0f6d5a;
+  font-size: 25rpx;
+}
+
+.coupon-foot {
+  display: grid;
+  gap: 7rpx;
+  margin-top: 22rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid #edf0ee;
+  color: #85918c;
+  font-size: 25rpx;
+}
+
+.coupon-card.status-used,
+.coupon-card.status-expired,
+.coupon-card.status-disabled {
+  border-left-color: #aab5af;
+  opacity: 0.72;
+}
+
+.status-used .coupon-status,
+.status-expired .coupon-status,
+.status-disabled .coupon-status {
+  background: #edf0ee;
+  color: #68746f;
+}

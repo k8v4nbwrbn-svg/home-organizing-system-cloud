@@ -1,0 +1,68 @@
+.support-state {
+  margin-top: 32rpx;
+  padding: 48rpx 30rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 12rpx;
+  background: #ffffff;
+  color: #7b8782;
+  text-align: center;
+}
+
+.agent-list {
+  display: grid;
+  gap: 22rpx;
+  margin-top: 32rpx;
+}
+
+.agent-card {
+  display: flex;
+  align-items: center;
+  gap: 26rpx;
+  padding: 26rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.agent-qr {
+  width: 210rpx;
+  height: 210rpx;
+  flex: none;
+  border: 1rpx solid #e2e7e4;
+  background: #ffffff;
+}
+
+.agent-info {
+  min-width: 0;
+}
+
+.agent-name {
+  color: #17201d;
+  font-size: 35rpx;
+  font-weight: 700;
+}
+
+.agent-wechat {
+  margin-top: 12rpx;
+  color: #0f6d5a;
+  font-size: 28rpx;
+  word-break: break-all;
+}
+
+.agent-tip {
+  margin-top: 16rpx;
+  color: #87928d;
+  font-size: 25rpx;
+  line-height: 1.6;
+}
+
+.share-button {
+  margin-top: 28rpx;
+}
+
+@media (max-width: 360px) {
+  .agent-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

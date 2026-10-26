@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/quote/quote",
+    "pages/orders/orders",
+    "pages/coupons/coupons",
+    "pages/support/support",
+    "pages/success/success"
+  ],
+  "window": {
+    "navigationBarTitleText": "家政收纳服务",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3f5f2",
+    "backgroundTextStyle": "dark"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

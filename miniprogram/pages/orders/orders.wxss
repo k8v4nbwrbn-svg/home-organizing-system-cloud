@@ -1,0 +1,128 @@
+.state-box,
+.empty-box {
+  margin-top: 34rpx;
+  padding: 48rpx 32rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 12rpx;
+  background: #ffffff;
+  color: #77837e;
+  text-align: center;
+}
+
+.empty-title {
+  color: #17201d;
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.empty-copy {
+  margin: 14rpx 0 30rpx;
+  color: #77837e;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+
+.order-list {
+  display: grid;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.order-card {
+  padding: 28rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 12rpx;
+  background: #ffffff;
+}
+
+.order-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.order-service {
+  color: #17201d;
+  font-size: 33rpx;
+  font-weight: 700;
+}
+
+.order-time {
+  margin-top: 8rpx;
+  color: #8c9893;
+  font-size: 25rpx;
+}
+
+.order-status {
+  padding: 8rpx 15rpx;
+  border-radius: 999rpx;
+  background: #eef1ef;
+  color: #4d5b55;
+  font-size: 25rpx;
+  white-space: nowrap;
+}
+
+.status-new {
+  background: #fff0d9;
+  color: #8a5714;
+}
+
+.status-contacted,
+.status-quoted {
+  background: #e4eff8;
+  color: #2b648d;
+}
+
+.status-visiting {
+  background: #e1f2ed;
+  color: #276b58;
+}
+
+.status-won {
+  background: #dff2e7;
+  color: #1d704f;
+}
+
+.status-lost {
+  background: #f3e4e4;
+  color: #8f3b3b;
+}
+
+.order-body {
+  display: grid;
+  gap: 14rpx;
+  margin-top: 24rpx;
+  padding: 22rpx 0;
+  border-top: 1rpx solid #edf0ee;
+  border-bottom: 1rpx solid #edf0ee;
+}
+
+.order-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 24rpx;
+  color: #78847f;
+  font-size: 28rpx;
+}
+
+.order-meta strong {
+  color: #2b3833;
+  font-weight: 600;
+  text-align: right;
+}
+
+.order-price {
+  color: #0f6d5a !important;
+}
+
+.coupon-value {
+  color: #9a6818 !important;
+}
+
+.order-foot {
+  padding-top: 18rpx;
+  color: #8b9691;
+  font-size: 25rpx;
+  line-height: 1.55;
+}

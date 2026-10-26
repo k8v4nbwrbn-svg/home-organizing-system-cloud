@@ -1,0 +1,51 @@
+<view class="page-shell success-page">
+  <view class="success-mark">✓</view>
+  <view class="display-title">需求已提交</view>
+  <view class="subcopy">客服已经收到你的资料和报价记录，会尽快与你联系确认细节。</view>
+
+  <view class="stepper success-stepper">
+    <view class="step done">
+      <view class="step-index">✓</view>
+      <text>填写信息</text>
+    </view>
+    <view class="step done">
+      <view class="step-index">✓</view>
+      <text>选择需求</text>
+    </view>
+    <view class="step active">
+      <view class="step-index">3</view>
+      <text>获取报价</text>
+    </view>
+  </view>
+
+  <view wx:if="{{result}}" class="result-card">
+    <view class="result-label">本次参考预算</view>
+    <view class="result-price">¥{{result.quote.low}} - ¥{{result.quote.high}}</view>
+    <view class="result-meta">精确参考价 ¥{{result.quote.exact}}</view>
+    <view class="result-divider"></view>
+    <view class="result-line">
+      <text>客户</text>
+      <text>{{result.member.name}} {{result.member.phone}}</text>
+    </view>
+    <view class="result-line">
+      <text>房屋</text>
+      <text>{{result.quote.area}}㎡ · {{result.layout}} · {{result.quote.rooms}} 间</text>
+    </view>
+    <view wx:if="{{result.preferredDate}}" class="result-line">
+      <text>期望日期</text>
+      <text>{{result.preferredDate}}</text>
+    </view>
+    <view class="status-line">
+      <text class="status-dot"></text>
+      <text>状态：新线索，等待客服跟进</text>
+    </view>
+  </view>
+
+  <view class="next-step">
+    <view class="next-title">接下来</view>
+    <view class="next-copy">客服会先电话确认面积、物品量和上门时间。现场评估后再确认最终服务价格。</view>
+  </view>
+
+  <button class="primary-button section-gap" hover-class="button-hover" bindtap="viewOrders">查看我的订单</button>
+  <button class="secondary-button section-gap" hover-class="button-hover" bindtap="backHome">返回首页</button>
+</view>

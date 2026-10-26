@@ -1,0 +1,12 @@
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+data/*.log
+node_modules/
+public/qr/*.png
+seed/*-shm
+seed/*-wal
+seed/app.sqlite
+miniprogram/project.private.config.json
+.env
+.DS_Store

@@ -1,0 +1,217 @@
+.hero {
+  padding: 28rpx 0 20rpx;
+}
+
+.trust-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rpx;
+  margin-top: 16rpx;
+  background: #dce3de;
+}
+
+.trust-item {
+  min-height: 110rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18rpx;
+  background: #edf2ee;
+  color: #51605a;
+  font-size: 27rpx;
+}
+
+.trust-number {
+  margin-bottom: 5rpx;
+  color: #0f6d5a;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.service-note {
+  padding: 30rpx 8rpx;
+  color: #7d8984;
+  font-size: 27rpx;
+  text-align: center;
+}
+
+.login-block {
+  margin-top: 8rpx;
+}
+
+.login-intro {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 26rpx;
+  border-radius: 10rpx;
+  background: #e8f2ed;
+}
+
+.login-icon {
+  width: 76rpx;
+  height: 76rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0f6d5a;
+  color: #ffffff;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.login-title {
+  color: #17201d;
+  font-size: 33rpx;
+  font-weight: 700;
+}
+
+.login-copy {
+  margin-top: 7rpx;
+  color: #67736e;
+  font-size: 27rpx;
+  line-height: 1.55;
+}
+
+.agreement-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+  margin: 26rpx 0;
+  color: #6d7974;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.wechat-login-button {
+  margin-top: 4rpx;
+}
+
+.logged-in-block {
+  margin-top: 14rpx;
+}
+
+.login-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 9rpx;
+  padding: 10rpx 16rpx;
+  border-radius: 999rpx;
+  background: #e2f1e8;
+  color: #0f6d5a;
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.login-state-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #20a06f;
+}
+
+.orders-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  padding: 22rpx 4rpx;
+  border-top: 1rpx solid #e2e8e4;
+  color: #456056;
+  font-size: 28rpx;
+}
+
+.orders-entry-arrow {
+  color: #0f6d5a;
+  font-size: 38rpx;
+}
+
+.bound-input {
+  background: #f0f5f2 !important;
+  color: #53615b !important;
+}
+
+.phone-bound-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-top: 10rpx;
+  color: #0f6d5a;
+  font-size: 26rpx;
+}
+
+.phone-bind-button {
+  min-height: 76rpx;
+  margin-top: 14rpx;
+  font-size: 29rpx;
+}
+
+.phone-panel .primary-button {
+  margin-top: 22rpx;
+}
+
+.support-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin-top: 24rpx;
+  padding: 26rpx;
+  border: 1rpx solid #dce3de;
+  border-radius: 10rpx;
+  background: #ffffff;
+}
+
+.support-entry-title {
+  color: #23312b;
+  font-size: 31rpx;
+  font-weight: 700;
+}
+
+.support-entry-copy {
+  margin-top: 7rpx;
+  color: #7a8681;
+  font-size: 26rpx;
+  line-height: 1.55;
+}
+
+.share-card {
+  margin-top: 24rpx;
+  padding: 28rpx;
+  border-left: 6rpx solid #d89432;
+  background: #fff8ed;
+}
+
+.share-title {
+  color: #2d3833;
+  font-size: 31rpx;
+  font-weight: 700;
+}
+
+.share-copy {
+  margin: 8rpx 0 18rpx;
+  color: #7c827f;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.share-mini-button {
+  min-height: 76rpx;
+  font-size: 29rpx;
+}
+
+.logout-wrap {
+  padding: 20rpx 0 36rpx;
+}
+
+.logout-button {
+  width: 100%;
+  min-height: 82rpx;
+  border: 1rpx solid #e1c9c9;
+  border-radius: 10rpx;
+  background: #fffafa;
+  color: #a33b3b;
+  font-size: 29rpx;
+  font-weight: 600;
+}

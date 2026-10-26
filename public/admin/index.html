@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>家政收纳 · 客户管理</title>
+  <link rel="stylesheet" href="/admin/styles.css">
+</head>
+<body>
+  <div id="loginView" class="login-view" hidden>
+    <form id="loginForm" class="login-panel">
+      <div class="brand-mark" aria-hidden="true">收</div>
+      <p class="eyebrow">HOME ORGANIZING CRM</p>
+      <h1>客户管理后台</h1>
+      <p class="muted">登录后查看实时线索、报价记录和跟进状态。</p>
+      <label>
+        <span>后台密码</span>
+        <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="loginError" class="form-error" hidden></p>
+      <button class="btn btn-primary btn-block" type="submit">进入后台</button>
+    </form>
+  </div>
+
+  <div id="appView" class="app-shell" hidden>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small" aria-hidden="true">收</div>
+        <div>
+          <strong>家政收纳</strong>
+          <span>客户管理</span>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="后台导航">
+        <button class="nav-item active" data-page="dashboard">工作台</button>
+        <button class="nav-item" data-page="leads">客户线索</button>
+        <button class="nav-item" data-page="payments">收费客户</button>
+        <button class="nav-item" data-page="trash">回收箱</button>
+        <button class="nav-item" data-page="coupons">优惠券</button>
+        <button class="nav-item" data-page="support">客服设置</button>
+        <button class="nav-item" data-page="pricing">报价设置</button>
+        <button class="nav-item" data-page="qr">小程序码</button>
+      </nav>
+      <div class="sidebar-footer">
+        <span id="realtimeState" class="connection-state"><i></i> 实时连接中</span>
+        <button id="logoutButton" class="text-button">退出登录</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CUSTOMER OPERATIONS</p>
+          <h1 id="pageTitle">工作台</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="refreshButton" class="btn btn-secondary">刷新数据</button>
+          <a class="btn btn-primary" href="/admin/#leads">查看全部线索</a>
+        </div>
+      </header>
+
+      <section id="page-dashboard" class="page active">
+        <div class="notice-band">
+          <div>
+            <strong>实时客户线索</strong>
+            <p>客户提交后会立即出现在此处，不需要手动刷新。</p>
+          </div>
+          <span id="lastUpdated" class="muted">尚未更新</span>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-block">
+            <span>今日新线索</span>
+            <strong id="statToday">0</strong>
+            <small>按本地日期统计</small>
+          </article>
+          <article class="stat-block">
+            <span>待跟进</span>
+            <strong id="statPending">0</strong>
+            <small>新线索、沟通中、已报价、待上门</small>
+          </article>
+          <article class="stat-block">
+            <span>累计客户</span>
+            <strong id="statTotal">0</strong>
+            <small>所有提交过报价的客户</small>
+          </article>
+          <article class="stat-block accent">
+            <span>已成交</span>
+            <strong id="statWon">0</strong>
+            <small>当前状态为“已成交”</small>
+          </article>
+        </div>
+        <div class="section-heading">
+          <div>
+            <h2>最新线索</h2>
+            <p>最近提交的客户需求与预算。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>客户</th>
+                <th>房屋</th>
+                <th>需求</th>
+                <th>预算</th>
+                <th>优惠券</th>
+                <th>状态</th>
+                <th>提交时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="recentLeadsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="page-leads" class="page">
+        <div class="filter-bar">
+          <label class="search-field">
+            <span class="sr-only">搜索客户</span>
+            <input id="leadSearch" type="search" placeholder="搜索姓名、手机号或地址">
+          </label>
+          <select id="leadStatusFilter" aria-label="按状态筛选">
+            <option value="all">全部状态</option>
+            <option value="new">新线索</option>
+            <option value="contacted">沟通中</option>
+            <option value="quoted">已报价</option>
+            <option value="visiting">待上门</option>
+            <option value="won">已成交</option>
+            <option value="lost">已流失</option>
+          </select>
+          <button id="searchLeadsButton" class="btn btn-secondary">筛选</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>客户</th>
+                <th>联系方式</th>
+                <th>房屋</th>
+                <th>需求</th>
+                <th>预算</th>
+                <th>优惠券</th>
+                <th>状态</th>
+                <th>下次跟进</th>
+                <th>提交时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="allLeadsBody"></tbody>
+          </table>
+        </div>
+        <p id="leadCount" class="table-footnote"></p>
+      </section>
+
+      <section id="page-payments" class="page">
+        <div class="notice-band">
+          <div>
+            <strong>收费与定金客户</strong>
+            <p>这里汇总所有仍有有效收款或定金的客户。退费后对应收款会自动移出该分组。</p>
+          </div>
+        </div>
+        <div class="filter-bar">
+          <label class="search-field">
+            <span class="sr-only">搜索收费客户</span>
+            <input id="paymentSearch" type="search" placeholder="搜索客户姓名或手机号">
+          </label>
+          <select id="paymentTypeFilter" aria-label="按收费类型筛选">
+            <option value="all">全部收费</option>
+            <option value="deposit">已交定金</option>
+            <option value="full">已付全款</option>
+          </select>
+          <button id="searchPaymentsButton" class="btn btn-secondary">筛选</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>客户</th>
+                <th>房屋</th>
+                <th>收费明细</th>
+                <th>有效实收</th>
+                <th>参考报价</th>
+                <th>线索状态</th>
+              </tr>
+            </thead>
+            <tbody id="paidCustomersBody"></tbody>
+          </table>
+        </div>
+        <p id="paidCustomerCount" class="table-footnote"></p>
+      </section>
+
+      <section id="page-trash" class="page">
+        <div class="notice-band">
+          <div>
+            <strong>客户线索回收箱</strong>
+            <p>删除的客户线索会保留在这里，可以搜索并恢复。系统不会自动永久删除。</p>
+          </div>
+        </div>
+        <div class="filter-bar trash-filter">
+          <label class="search-field">
+            <span class="sr-only">搜索回收箱</span>
+            <input id="trashSearch" type="search" placeholder="搜索姓名、手机号或地址">
+          </label>
+          <button id="searchTrashButton" class="btn btn-secondary">搜索</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>客户</th>
+                <th>联系方式</th>
+                <th>房屋</th>
+                <th>需求</th>
+                <th>预算</th>
+                <th>删除时间</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="trashLeadsBody"></tbody>
+          </table>
+        </div>
+        <p id="trashLeadCount" class="table-footnote"></p>
+      </section>
+
+      <section id="page-coupons" class="page">
+        <div class="page-grid">
+          <div>
+            <div class="section-heading">
+              <div>
+                <h2>优惠券活动</h2>
+                <p>创建后可通过“指定人发放”发给单个客户，或通过“全体会员发放”发给所有已微信登录会员。</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>优惠券</th>
+                    <th>优惠内容</th>
+                    <th>有效期</th>
+                    <th>已发放 / 已使用</th>
+                    <th>状态</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="couponCampaignsBody"></tbody>
+              </table>
+            </div>
+            <p class="table-footnote">停用后不再允许发放；已发放且在有效期内的优惠券仍由系统按规则判断是否可用。</p>
+          </div>
+          <aside class="quote-preview">
+            <p class="eyebrow">CREATE COUPON</p>
+            <h2>创建优惠券</h2>
+            <form id="couponForm" class="coupon-form">
+              <label><span>优惠券名称</span><input id="couponName" required placeholder="例如：新客立减 100 元"></label>
+              <label><span>优惠类型</span>
+                <select id="couponDiscountType">
+                  <option value="fixed">固定金额</option>
+                  <option value="percent">折扣百分比</option>
+                </select>
+              </label>
+              <label><span id="couponValueLabel">优惠金额（元）</span><input id="couponValue" type="number" min="1" required></label>
+              <label><span>最低消费（元）</span><input id="couponMinimum" type="number" min="0" value="0" required></label>
+              <label><span>发放总量（0 为不限）</span><input id="couponQuantity" type="number" min="0" value="100" required></label>
+              <label><span>每人限领</span><input id="couponPerMember" type="number" min="1" value="1" required></label>
+              <label><span>开始日期（选填）</span><input id="couponValidFrom" type="date"></label>
+              <label><span>结束日期（选填）</span><input id="couponValidUntil" type="date"></label>
+              <button type="submit" class="btn btn-primary btn-block">发布优惠券</button>
+              <span id="couponSaveState" class="muted"></span>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section id="page-support" class="page">
+        <div class="page-grid">
+          <div>
+            <div class="section-heading">
+              <div>
+                <h2>客服微信</h2>
+                <p>每新增一个客服都需要上传对应的微信二维码，客户端会自动展示所有启用的客服。</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>二维码</th>
+                    <th>客服名称</th>
+                    <th>微信号</th>
+                    <th>排序</th>
+                    <th>状态</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="supportAgentsBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <aside class="quote-preview">
+            <p class="eyebrow">CUSTOMER SERVICE</p>
+            <h2 id="supportFormTitle">新增客服</h2>
+            <form id="supportForm" class="coupon-form">
+              <label><span>客服名称</span><input id="supportName" required placeholder="例如：收纳顾问小刘"></label>
+              <label><span>客服微信号</span><input id="supportWechatId" placeholder="例如：shouna001"></label>
+              <label><span>排序（数字越小越靠前）</span><input id="supportSortOrder" type="number" min="0" value="0"></label>
+              <label><span>客服微信二维码</span><input id="supportQrFile" type="file" accept="image/png,image/jpeg,image/webp"></label>
+              <input id="supportEditingId" type="hidden">
+              <div class="support-preview-wrap">
+                <img id="supportQrPreview" class="support-qr-preview" alt="二维码预览" hidden>
+                <span id="supportQrPlaceholder" class="muted">请选择二维码图片</span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" id="supportSubmitButton">新增客服</button>
+              <button type="button" class="btn btn-secondary btn-block" id="supportCancelEdit" hidden>取消编辑</button>
+              <span id="supportSaveState" class="muted"></span>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section id="page-pricing" class="page">
+        <div class="page-grid">
+          <div>
+            <div class="section-heading">
+              <div>
+                <h2>基础报价规则</h2>
+                <p>保存后，新提交的报价立即按新规则计算；历史报价保留快照。</p>
+              </div>
+            </div>
+            <form id="pricingForm" class="form-panel">
+              <div class="form-grid two">
+                <label>
+                  <span>服务名称</span>
+                  <input id="pricingBrandName" required>
+                </label>
+                <label>
+                  <span>每平方米价格</span>
+                  <input id="pricingBasePrice" type="number" min="0" step="1" required>
+                </label>
+                <label>
+                  <span>最低服务价</span>
+                  <input id="pricingMinimum" type="number" min="0" step="1" required>
+                </label>
+                <label>
+                  <span>报价浮动范围</span>
+                  <div class="input-suffix">
+                    <input id="pricingMargin" type="number" min="0" max="50" step="1" required>
+                    <span>%</span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="subsection-heading">
+                <h3>服务项目</h3>
+                <button id="addServiceButton" type="button" class="btn btn-secondary btn-small">添加服务</button>
+              </div>
+              <div id="serviceRows" class="rule-list"></div>
+
+              <div class="subsection-heading">
+                <h3>预约时段系数</h3>
+                <button id="addUrgencyButton" type="button" class="btn btn-secondary btn-small">添加时段</button>
+              </div>
+              <div id="urgencyRows" class="rule-list"></div>
+
+              <div class="form-actions">
+                <span id="pricingSaveState" class="muted"></span>
+                <button type="submit" class="btn btn-primary">保存报价规则</button>
+              </div>
+            </form>
+          </div>
+          <aside class="quote-preview">
+            <p class="eyebrow">LIVE ESTIMATE</p>
+            <h2>报价试算</h2>
+            <p class="muted">用一组示例参数检查当前规则是否合理。</p>
+            <label>
+              <span>面积（㎡）</span>
+              <input id="previewArea" type="number" min="10" value="100">
+            </label>
+            <label>
+              <span>房间数</span>
+              <input id="previewRooms" type="number" min="1" value="3">
+            </label>
+            <label>
+              <span>服务项目</span>
+              <select id="previewService"></select>
+            </label>
+            <label>
+              <span>预约时段</span>
+              <select id="previewUrgency"></select>
+            </label>
+            <button id="previewQuoteButton" type="button" class="btn btn-secondary btn-block">重新试算</button>
+            <div id="previewQuoteResult" class="preview-result">填写参数后试算</div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="page-qr" class="page">
+        <div class="page-grid qr-grid">
+          <div>
+            <div class="section-heading">
+              <div>
+                <h2>小程序会员入口</h2>
+                <p>客户扫码后进入会员登记并填写房屋与收纳需求。</p>
+              </div>
+            </div>
+            <div class="qr-panel">
+              <div id="qrPlaceholder" class="qr-placeholder">
+                <div class="qr-frame">二维码待生成</div>
+                <p>在项目目录配置微信 AppID/AppSecret，然后运行：</p>
+                <code>npm run generate:qr</code>
+              </div>
+              <img id="qrImage" class="qr-image" alt="微信小程序码" hidden>
+              <div class="qr-copy">
+                <h3>扫码路径</h3>
+                <p>首页 → 登记会员 → 选择房屋与需求 → 获取预算 → 提交线索</p>
+                <button id="reloadQrButton" type="button" class="btn btn-secondary">重新载入二维码</button>
+              </div>
+            </div>
+          </div>
+          <aside class="info-panel">
+            <h3>上线前需要配置</h3>
+            <ol>
+              <li>在微信公众平台注册小程序并获取 AppID/AppSecret。</li>
+              <li>把后端部署到 HTTPS 域名，并加入小程序服务器域名白名单。</li>
+              <li>修改小程序 <code>config.js</code> 中的 API 地址。</li>
+              <li>生成正式版二维码：<code>npm run generate:qr</code>。</li>
+            </ol>
+            <p class="warning-note">未配置微信凭据时，系统仍可在开发工具中运行和测试，但无法生成真实微信小程序码。</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="leadDialog" class="lead-dialog">
+    <form method="dialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+    </form>
+    <div id="leadDialogContent"></div>
+  </dialog>
+
+  <dialog id="couponIssueDialog" class="lead-dialog member-dialog">
+    <form method="dialog">
+      <button class="dialog-close" aria-label="关闭">×</button>
+    </form>
+    <div class="member-dialog-body">
+      <p class="eyebrow">ISSUE COUPON</p>
+      <h2>指定客户发放</h2>
+      <p id="couponIssueCampaignName" class="muted"></p>
+      <div class="member-search-bar">
+        <input id="couponMemberSearch" type="search" placeholder="输入客户姓名或手机号搜索">
+        <button id="couponMemberSearchButton" class="btn btn-secondary">搜索</button>
+      </div>
+      <div id="couponMemberResults" class="member-results">
+        <p class="muted">正在加载客户…</p>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/admin/app.js" defer></script>
+</body>
+</html>

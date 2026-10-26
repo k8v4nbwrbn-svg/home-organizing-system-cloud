@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.git
+data
+node_modules
+miniprogram
+scripts
+seed/*-shm
+seed/*-wal
+seed/app.sqlite
+*.log

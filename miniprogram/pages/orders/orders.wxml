@@ -1,0 +1,44 @@
+<view class="page-shell">
+  <view class="eyebrow">MY SERVICE ORDERS</view>
+  <view class="display-title">我的订单</view>
+  <view class="subcopy">这里可以查看每次提交的需求、参考报价和客服跟进进度。</view>
+
+  <view wx:if="{{loading}}" class="state-box">正在加载订单…</view>
+  <view wx:elif="{{error}}" class="error-box">{{error}}</view>
+  <view wx:elif="{{!orders.length}}" class="empty-box">
+    <view class="empty-title">还没有订单</view>
+    <view class="empty-copy">选择需要的服务并提交需求后，订单会出现在这里。</view>
+    <button class="primary-button" hover-class="button-hover" bindtap="backToService">去看服务</button>
+  </view>
+
+  <view wx:else class="order-list">
+    <view wx:for="{{orders}}" wx:key="id" class="order-card">
+      <view class="order-head">
+        <view>
+          <view class="order-service">{{item.serviceText}}</view>
+          <view class="order-time">{{item.createdText}}</view>
+        </view>
+        <view class="order-status status-{{item.status}}">{{item.statusLabel}}</view>
+      </view>
+      <view class="order-body">
+        <view class="order-meta">
+          <text>房屋</text>
+          <strong>{{item.area}}㎡ · {{item.layout}} · {{item.rooms}} 间</strong>
+        </view>
+        <view wx:if="{{item.preferredDate}}" class="order-meta">
+          <text>期望日期</text>
+          <strong>{{item.preferredDate}}</strong>
+        </view>
+        <view class="order-meta">
+          <text>参考报价</text>
+          <strong class="order-price">¥{{item.quoteLow}} - ¥{{item.quoteHigh}}</strong>
+        </view>
+        <view wx:if="{{item.discount}}" class="order-meta">
+          <text>优惠券</text>
+          <strong class="coupon-value">{{item.couponName}} · 已抵 ¥{{item.discount}}</strong>
+        </view>
+      </view>
+      <view class="order-foot">客服将按当前状态继续跟进，如有变化会与你联系。</view>
+    </view>
+  </view>
+</view>
